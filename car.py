@@ -9,6 +9,7 @@ class Car:
         self.durability = durability
         self.fuel = fuel
         self.hp = 100
+        self.max_hp = 100
 
     def can_use(self, cost):
         return self.fuel >= cost
@@ -45,7 +46,8 @@ class Car:
 
     def nitro_boost(self, target):
         if self.fuel < 15:
-            return False  # instead of printing
+            print(f"Not enough fuel! Need 15 fuel, have {self.fuel}")
+            return False
 
         damage = self.speed * 2 - target.durability
         damage = max(damage, 0)
@@ -62,7 +64,7 @@ class Car:
 
     def heavy_ram(self, target):
         if self.fuel < 10:
-            print("Not enough fuel for Heavy Ram!")
+            print(f"Not enough fuel for Heavy Ram! Need 10 fuel, have {self.fuel}")
             return
 
         damage = int(self.speed * 1.5)

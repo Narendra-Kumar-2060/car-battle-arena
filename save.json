@@ -1,0 +1,10 @@
+{
+  "player_car": {
+    "name": "Mustang",
+    "speed": 10,
+    "durability": 5,
+    "fuel": 40,
+    "hp": 100
+  },
+  "captured_cars": []
+}
