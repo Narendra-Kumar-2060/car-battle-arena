@@ -28,7 +28,6 @@ def save_game(player_car, captured_cars):
         "captured_cars": [],
     }
 
-    # Convert each captured car to a dictionary
     for car in captured_cars:
         save_data["captured_cars"].append(
             {
@@ -40,7 +39,6 @@ def save_game(player_car, captured_cars):
             }
         )
 
-    # Write to file
     with open(SAVE_FILE, "w") as f:
         json.dump(save_data, f, indent=4)
 
@@ -54,7 +52,6 @@ def load_game():
     with open(SAVE_FILE, "r") as f:
         save_data = json.load(f)
 
-    # Recreate player car from dictionary
     player_data = save_data["player_car"]
     player_car = Car(
         player_data["name"],
@@ -64,7 +61,6 @@ def load_game():
     )
     player_car.hp = player_data["hp"]
 
-    # Recreate all captured cars
     captured_cars = []
     for car_data in save_data["captured_cars"]:
         car = Car(

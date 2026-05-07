@@ -4,7 +4,6 @@ import random
 from car import Car
 from utils import capture_chance, save_game, load_game
 
-# ========== SETUP ==========
 garage = [
     Car("Mustang", 10, 5, 40),
     Car("Ferrari", 12, 3, 35),
@@ -14,7 +13,6 @@ garage = [
 
 captured_cars = []
 
-# Choose starter car
 print("\n=== GARAGE ===")
 print("Choose your car:\n")
 
@@ -26,7 +24,6 @@ for i, car in enumerate(garage):
 choice = int(input("\nEnter choice: ")) - 1
 player_car = garage[choice]
 
-# ========== MAIN MENU LOOP ==========
 while True:
     print("\n" + "=" * 30)
     print("        MAIN MENU")
@@ -40,16 +37,11 @@ while True:
 
     menu_choice = input("\nChoose: ")
 
-    # ========== START BATTLE ==========
     if menu_choice == "1":
-        # Select random enemy (different from player)
-        enemy_car = random.choice(
-            garage + captured_cars
-        )  # Can fight captured cars too!
+        enemy_car = random.choice(garage + captured_cars)
         while enemy_car == player_car:
             enemy_car = random.choice(garage + captured_cars)
 
-        # Reset enemy to full health
         enemy_car.hp = enemy_car.max_hp
         enemy_car.fuel = 40
 
@@ -58,22 +50,18 @@ while True:
 
         turn = 0
 
-        # ========== BATTLE LOOP ==========
         while True:
             turn += 1
 
-            # Fuel regeneration
             player_car.fuel = min(player_car.fuel + 5, 50)
             enemy_car.fuel = min(enemy_car.fuel + 5, 50)
 
-            # Show battle status
             print("\n" + "=" * 25)
             print(f"TURN {turn}")
             print(f"{player_car.name} → HP: {player_car.hp} | Fuel: {player_car.fuel}")
             print(f"{enemy_car.name} → HP: {enemy_car.hp} | Fuel: {enemy_car.fuel}")
             print("-" * 20)
 
-            # ========== PLAYER TURN ==========
             while True:
                 print(
                     "1. Attack | 2. Repair | 3. Nitro Boost | 4. Heavy Ram | 5. Capture | 6. Skip"
@@ -101,7 +89,6 @@ while True:
                 print()
 
             elif player_choice == "5":
-                # Capture mechanic
                 if enemy_car.hp <= 0:
                     print("Cannot capture a destroyed car!")
                     continue
@@ -125,7 +112,7 @@ while True:
                     print(f"{enemy_car.name} added to your garage!")
                     print(f"Garage now has {len(captured_cars)} car(s)")
 
-                    enemy_car.hp = 0  # End battle
+                    enemy_car.hp = 0
 
                 else:
                     print(f"\n❌ {enemy_car.name} broke free and counterattacks! ❌")
@@ -133,24 +120,21 @@ while True:
 
                 print()
 
-            else:  # Skip
+            else:
                 print("Skipping Turn...")
                 player_car.fuel = min(player_car.fuel + 8, 50)
                 print(f"{player_car.name} gained 8 fuel!")
                 print()
 
-            # Check if battle ended
             if enemy_car.hp <= 0:
                 print(f"\n{enemy_car.name} is destroyed!")
                 print(f"🏆 {player_car.name} wins! 🏆")
                 break
 
-            # ========== ENEMY TURN ==========
             time.sleep(2)
             enemy_car.enemy_turn(player_car)
             print()
 
-            # Check if player died
             if player_car.hp <= 0:
                 print(f"\n{player_car.name} is destroyed!")
                 print(f"💀 {enemy_car.name} wins! 💀")
@@ -159,11 +143,9 @@ while True:
             print(f"{player_car.name} HP: {player_car.hp}")
             print("-" * 20)
 
-        # Battle ended, pause before returning to menu
         input("\nPress Enter to continue...")
-        continue  # Go back to main menu
+        continue
 
-    # ========== VIEW GARAGE ==========
     if menu_choice == "2":
         if not captured_cars:
             print("\nYour garage is empty! Capture cars in battle.")
@@ -173,7 +155,6 @@ while True:
                 print(f"{i}. {car.name} (HP: {car.hp}, Fuel: {car.fuel})")
         input("\nPress Enter to continue...")
 
-    # ========== SWITCH ACTIVE CAR ==========
     elif menu_choice == "3":
         if not captured_cars:
             print("\nNo captured cars to switch to!")
@@ -203,12 +184,10 @@ while True:
 
         input("\nPress Enter to continue...")
 
-    # ========== SAVE GAME ==========
     if menu_choice == "4":
         save_game(player_car, captured_cars)
         input("\nPress Enter to continue...")
 
-    # ========== LOAD GAME ==========
     if menu_choice == "5":
         loaded_player, loaded_garage = load_game()
         if loaded_player is not None:
@@ -219,7 +198,6 @@ while True:
             print("\nNo save file found! Start a new game first.")
         input("\nPress Enter to continue...")
 
-    # ========== QUIT ==========
     if menu_choice == "6":
         print("\nGoodbye! Thanks for playing!")
         sys.exit()
