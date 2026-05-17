@@ -43,7 +43,6 @@ while True:
             enemy_car = random.choice(garage + captured_cars)
 
         enemy_car.hp = enemy_car.max_hp
-        enemy_car.fuel = 40
 
         print(f"\n⚔️ BATTLE START: {player_car.name} vs {enemy_car.name} ⚔️")
         time.sleep(1)

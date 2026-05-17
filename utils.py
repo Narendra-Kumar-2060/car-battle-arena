@@ -6,8 +6,8 @@ from car import Car
 SAVE_FILE = "save.json"
 
 
-def capture_chance(health):
-    enemy_hp_percent = health / 100
+def capture_chance(health, max_hp=100):
+    enemy_hp_percent = health / max_hp
     chance = (1 - enemy_hp_percent) * 100
     roll = random.randint(1, 100)
     if roll <= chance:
