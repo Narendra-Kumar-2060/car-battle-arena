@@ -21,7 +21,16 @@ for i, car in enumerate(garage):
         f"{i + 1}. {car.name} (Speed: {car.speed}, Durability: {car.durability}, Fuel: {car.fuel})"
     )
 
-choice = int(input("\nEnter choice: ")) - 1
+while True:
+    raw_choice = input("\nEnter choice: ")
+    try:
+        choice = int(raw_choice) - 1
+        if 0 <= choice < len(garage):
+            break
+        print(f"Please enter a number between 1 and {len(garage)}.")
+    except ValueError:
+        print("Please enter a valid number.")
+
 player_car = garage[choice]
 
 while True:
