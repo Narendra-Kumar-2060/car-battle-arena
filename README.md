@@ -54,7 +54,7 @@ Command Effect
 
 ## Project Structure
 
-```
+```text
 car-battle-arena/
 │
 ├── car.py          # Car class with all battle actions
@@ -77,7 +77,7 @@ The game saves to save.json in the same directory. Saved data includes:
 
 ## Capture Formula
 
-```
+```text
 capture_chance = (1 - enemy_hp / max_hp) × 100
 ```
 
@@ -87,7 +87,7 @@ capture_chance = (1 - enemy_hp / max_hp) × 100
 
 ## Example Gameplay
 
-```
+```text
 === MAIN MENU ===
 1. Start Battle
 2. View Garage
